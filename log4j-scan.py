@@ -253,6 +253,7 @@ class Interactsh:
         result = []
         url = f"https://{self.server}/poll?id={self.correlation_id}&secret={self.secret}"
         res = self.session.get(url, headers=self.headers, timeout=30).json()
+        cprint(res, "green")
         aes_key, data_list = res['aes_key'], res['data']
         for i in data_list:
             decrypt_data = self.__decrypt_data(aes_key, i)
@@ -316,6 +317,7 @@ def scan_url(url, callback_host):
 
     for payload in payloads:
         cprint(f"[•] URL: {url} | PAYLOAD: {payload}", "cyan")
+        cprint(callback_host, "green")
 
         if args.request_type.upper() == "GET" or args.run_all_tests:
             try:
